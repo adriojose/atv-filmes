@@ -15,7 +15,10 @@
 
 <template>
   <header>
+    
     <nav>
+     <img src="/image 6.png" alt="">
+      <h1>CosmoWatch</h1>
       <router-link to="/">Home</router-link>
       <router-link to="/filmes">Filmes</router-link>
       <router-link to="/tv">Programas de TV</router-link>
@@ -32,12 +35,20 @@ header {
   display: flex;
   background-color: black;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding-left: 2rem;
 }
 
+nav h1 {
+  font-size: 2vw;
+}
+header img{
+  width: 8vw;
+  height: 4vw;
+  margin-top: 1.5vw;
+}
 nav {
-  column-gap: 2rem;
+  column-gap: 1rem;
   margin-bottom: 0;
   display: flex;
   align-items: center;
@@ -45,6 +56,6 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #fff;
+  color: #3CBFDD;
 }
 </style>

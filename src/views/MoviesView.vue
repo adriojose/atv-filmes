@@ -5,91 +5,91 @@ import { ref, onMounted } from 'vue'
 import api from '@/plugins/axios'
 import { useRouter } from 'vue-router'
 
-
-
-
 const router = useRouter()
 const genreStore = useGenreStore()
-const isLoading = ref(false)
-const genres = ref([])
 
+const isLoading = ref(false)
+const movies = ref([])
 
 function openMovie(movieId) {
   router.push({ name: 'MovieDetails', params: { movieId } });
 }
 
-
-
-
 onMounted(async () => {
-  const response = await api.get('genre/movie/list?language=pt-BR')
-  genres.value = response.data.genres
   isLoading.value = true
+  
+  // ⬇ Carregar os gêneros no store
   await genreStore.getAllGenres('movie')
+
+  // ⬇ Carregar automaticamente os filmes de Ficção Científica ao entrar
+  await listMovies(878)
+
   isLoading.value = false
 })
 
-
-const movies = ref([])
-
-
 const listMovies = async (genreId) => {
-  genreStore.setCurrentGenreId(genreId);
+  genreStore.setCurrentGenreId(genreId)
   isLoading.value = true
+
   const response = await api.get('discover/movie', {
     params: {
-      with_genres: genreId,
+      with_genres: genreId, // agora usa o ID correto
       language: 'pt-BR',
     },
   })
+
   movies.value = response.data.results
   isLoading.value = false
 }
 
-
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString('pt-BR')
 </script>
+
 <template>
   <div>
-    <h1>Filmes</h1>
+    <h1>Filmes de Ficção Científica</h1>
+
+    <!-- Apenas 1 gênero (Ficção Científica) -->
     <ul class="genre-list">
       <li
-        v-for="genre in genreStore.genres"
+        v-for="genre in genreStore.genres.filter(g => g.id === 878)"
         :key="genre.id"
-        @click="listMovies(genre.id)"
+        @click="listMovies(878)"
         class="genre-item"
-        :class="{ active: genre.id === genreStore.currentGenreId }">
+        :class="{ active: genreStore.currentGenreId === 878 }"
+      >
         {{ genre.name }}
       </li>
     </ul>
+
     <loading v-model:active="isLoading" is-full-page />
+
     <div class="movie-list">
+      <div
+        v-for="movie in movies"
+        :key="movie.id"
+        class="movie-card"
+      >
+        <img
+          :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+          :alt="movie.title"
+          @click="openMovie(movie.id)"
+        />
 
-
-      <div v-for="movie in movies" :key="movie.id" class="movie-card">
-       <img
-  :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-  :alt="movie.title"
-  @click="openMovie(movie.id)"
-/>
         <div class="movie-details">
           <p class="movie-title">{{ movie.title }}</p>
-          <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
-
-
- <!-- fiz até aq -->
-
+          <p class="movie-release-date">
+            {{ formatDate(movie.release_date) }}
+          </p>
 
           <p class="movie-genres">
-            <span v-for="genre_id in movie.genre_ids"
-             :key="genre_id"
-             @click="listMovies(genre_id)"
-             :class="{ active: genre_id === genreStore.currentGenreId }"
-             >
-
-
-
-
+            <span
+              v-for="genre_id in movie.genre_ids"
+              :key="genre_id"
+              @click="listMovies(genre_id)"
+              :class="{ active: genre_id === genreStore.currentGenreId }"
+            >
               {{ genreStore.getGenreName(genre_id) }}
             </span>
           </p>
@@ -98,6 +98,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
     </div>
   </div>
 </template>
+
 <style scoped>
 .genre-list {
   display: flex;
@@ -106,8 +107,8 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   gap: 2rem;
   list-style: none;
   padding: 0;
+  margin-bottom: 2rem;
 }
-
 
 .genre-item {
   background-color: #387250;
@@ -116,19 +117,18 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   color: #fff;
 }
 
-
 .genre-item:hover {
   cursor: pointer;
   background-color: #4e9e5f;
   box-shadow: 0 0 0.5rem #387250;
 }
+
 .movie-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-left:1.8vw ;
+  margin-left: 1.8vw;
 }
-
 
 .movie-card {
   width: 15rem;
@@ -138,7 +138,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   box-shadow: 0 0 0.5rem #000;
 }
 
-
 .movie-card img {
   width: 100%;
   height: 20rem;
@@ -146,12 +145,9 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   box-shadow: 0 0 0.5rem #000;
 }
 
-
 .movie-details {
   padding: 0 0.5rem;
-  font-size: 2;
 }
-
 
 .movie-title {
   font-size: 1.1rem;
@@ -159,24 +155,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   line-height: 1.3rem;
   height: 3.2rem;
 }
-.genre-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  list-style: none;
-  margin-bottom: 2rem;
-  
-}
+
 .movie-genres {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
   gap: 0.2rem;
+  justify-content: center;
 }
-
 
 .movie-genres span {
   background-color: #748708;
@@ -187,17 +172,16 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   font-weight: bold;
 }
 
-
 .movie-genres span:hover {
   cursor: pointer;
   background-color: #455a08;
   box-shadow: 0 0 0.5rem #748708;
 }
+
 .active {
   background-color: #67b086;
   font-weight: bolder;
 }
-
 
 .movie-genres span.active {
   background-color: #abc322;

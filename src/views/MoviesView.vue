@@ -4,6 +4,10 @@ import { useGenreStore } from '@/stores/genre'
 import { ref, onMounted } from 'vue'
 import api from '@/plugins/axios'
 import { useRouter } from 'vue-router'
+import { useFavoritesStore } from '@/stores/favorites'
+
+
+const favoritesStore = useFavoritesStore()
 
 const router = useRouter()
 const genreStore = useGenreStore()
@@ -47,8 +51,9 @@ const formatDate = (date) =>
 </script>
 
 <template>
-  <div>
-    <h1>Filmes de Ficção Científica</h1>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <div class="filmes">
+    <h1>Explorar Filmes</h1>
 
     <!-- Apenas 1 gênero (Ficção Científica) -->
     <ul class="genre-list">
@@ -76,7 +81,13 @@ const formatDate = (date) =>
           :alt="movie.title"
           @click="openMovie(movie.id)"
         />
-
+        <button
+  class="fav-btn"
+  @click.stop="favoritesStore.toggleFavorite(movie)"
+>
+  <span v-if="favoritesStore.isFavorite(movie.id)"><i class="fa-solid fa-star"></i></span>
+  <span v-else><i class="fa-regular fa-star"></i></span>
+</button>
         <div class="movie-details">
           <p class="movie-title">{{ movie.title }}</p>
           <p class="movie-release-date">
@@ -87,7 +98,7 @@ const formatDate = (date) =>
             <span
               v-for="genre_id in movie.genre_ids"
               :key="genre_id"
-              @click="listMovies(genre_id)"
+                @click="listMovies(`878,${genre_id}`)"
               :class="{ active: genre_id === genreStore.currentGenreId }"
             >
               {{ genreStore.getGenreName(genre_id) }}
@@ -107,9 +118,25 @@ const formatDate = (date) =>
   gap: 2rem;
   list-style: none;
   padding: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
+.filmes {
+  background-color: #0D1C3A;
+  padding-top: 4vw;
+  padding-bottom: 2vw;
+}
+.filmes h1 {
+  margin-left: 3vw;
+  color: white;
+  font-weight: bold;
+  font-size: 2.5vw;
+  
+}
+.fa-star {
+  font-size: 20px;
+  margin-top: 2px;
+}
 .genre-item {
   background-color: #387250;
   border-radius: 1rem;
@@ -127,7 +154,16 @@ const formatDate = (date) =>
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-left: 1.8vw;
+  justify-content: center;
+  background-color: #12264D;
+}
+.fav-btn {
+ margin-left: 15vw;
+ color: yellow;
+ border: none;
+ background-color: #12264D;
+ cursor: pointer;
+
 }
 
 .movie-card {
@@ -147,6 +183,7 @@ const formatDate = (date) =>
 
 .movie-details {
   padding: 0 0.5rem;
+ color: white;
 }
 
 .movie-title {
@@ -161,7 +198,9 @@ const formatDate = (date) =>
   flex-wrap: wrap;
   gap: 0.2rem;
   justify-content: center;
+ 
 }
+
 
 .movie-genres span {
   background-color: #748708;

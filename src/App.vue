@@ -5,6 +5,8 @@
   const moviesGenres = ref([]);
   const TVGenres = ref([]);
 
+  
+
   onMounted(async () => {
     let response = await api.get('genre/movie/list?language=pt-BR');
     moviesGenres.value = response.data.genres;
@@ -21,7 +23,9 @@
       <h1>CosmoWatch</h1>
       <router-link to="/">Home</router-link>
       <router-link to="/filmes">Filmes</router-link>
-      <router-link to="/tv">Programas de TV</router-link>
+      <router-link to="/tv">Séries</router-link>
+     <router-link to="/favoritos"> <i class="fa-solid fa-star"></i></router-link>
+
     </nav>
   </header>
   <main>
@@ -34,9 +38,11 @@ header {
   height: 3rem;
   display: flex;
   background-color: black;
+  height: 6vw;
   color: #fff;
   font-size: 1.5rem;
   padding-left: 2rem;
+  
 }
 
 nav h1 {
@@ -45,7 +51,7 @@ nav h1 {
 header img{
   width: 8vw;
   height: 4vw;
-  margin-top: 1.5vw;
+  margin-top: 1vw;
 }
 nav {
   column-gap: 1rem;
@@ -57,5 +63,7 @@ nav {
 nav a {
   text-decoration: none;
   color: #3CBFDD;
+  font-weight: bold;
 }
+
 </style>

@@ -11,9 +11,10 @@ const genreStore = useGenreStore()
 const genres = ref([])
 const isLoading = ref(false)
 
-function openMovie(movieId) {
-  router.push({ name: 'MovieDetails', params: { movieId } });
+function openTv(tvId) {
+  router.push({ name: 'TVDetails', params: { tvId } })
 }
+
 
 
 onMounted(async () => {
@@ -45,17 +46,19 @@ const listTv = async (genreId) => {
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 </script>
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <h1>Programas de TV</h1>
   <ul class="genre-list">
-    <li
-     v-for="genre in genreStore.genres"
-     :key="genre.id"
-     @click="listTv(genre.id)"
-     class="genre-item"
-     :class="{ active: genre.id === genreStore.currentGenreId }">
-      {{ genre.name }}
-    </li>
-  </ul>
+  <li
+    v-for="genre in genreStore.genres.filter(g => g.id === 10765)"
+    :key="genre.id"
+    @click="listTv(10765)"
+    class="genre-item"
+    :class="{ active: genreStore.currentGenreId === 10765 }"
+  >
+    {{ genre.name }}
+  </li>
+</ul>
   <loading v-model:active="isLoading" is-full-page />
   <div class="tv-list">
 
@@ -63,8 +66,8 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
     <div v-for="tvs in tv" :key="tvs.id" class="tv-card">
 
 
-     <img :src="`https://image.tmdb.org/t/p/w500${tvs.poster_path}`" :alt="tvs.name" @click="openMovie(tvs.id)"/>
-
+     <img :src="`https://image.tmdb.org/t/p/w500${tvs.poster_path}`" :alt="tvs.name" @click="openTv(tvs.id)"/>
+      
 
       <div class="tvs-details">
         <p class="tvs-name">{{ tvs.name }}</p>

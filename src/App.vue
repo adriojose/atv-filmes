@@ -25,7 +25,7 @@
       <router-link to="/filmes">Filmes</router-link>
       <router-link to="/tv">Séries</router-link>
      <router-link to="/favoritos"> <i class="fa-solid fa-star"></i></router-link>
-
+       
     </nav>
   </header>
   <main>

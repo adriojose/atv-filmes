@@ -4,6 +4,10 @@ import { useGenreStore } from '@/stores/genre'
 import { ref, onMounted } from 'vue'
 import api from '@/plugins/axios'
 import { useRouter } from 'vue-router'
+import { useFavoritesStore } from '@/stores/favorites'
+
+const favoritesStore = useFavoritesStore()
+
 
 const router = useRouter()
 
@@ -22,6 +26,7 @@ onMounted(async () => {
   genres.value = response.data.genres
   isLoading.value = true
   await genreStore.getAllGenres('tv')
+  await listTv(10765)
   isLoading.value = false
 })
 
@@ -46,7 +51,9 @@ const listTv = async (genreId) => {
 const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 </script>
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <div class="fundo">
+   
   <h1>Programas de TV</h1>
   <ul class="genre-list">
   <li
@@ -66,8 +73,18 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
     <div v-for="tvs in tv" :key="tvs.id" class="tv-card">
 
 
-     <img :src="`https://image.tmdb.org/t/p/w500${tvs.poster_path}`" :alt="tvs.name" @click="openTv(tvs.id)"/>
-      
+     <img :src="`https://image.tmdb.org/t/p/w500${tvs.poster_path}`" :alt="tvs.name" @click="openTv(tvs.id)" />
+       <button
+  class="fav-btn"
+  @click.stop="favoritesStore.toggleFavorite(tvs)"
+>
+  <span v-if="favoritesStore.isFavorite(tvs.id)">
+    <i class="fa-solid fa-star"></i>
+  </span>
+  <span v-else>
+    <i class="fa-regular fa-star"></i>
+  </span>
+</button>
 
       <div class="tvs-details">
         <p class="tvs-name">{{ tvs.name }}</p>
@@ -79,7 +96,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
         <p class="tvs-genres">
           <span v-for="genre_id in tvs.genre_ids" :key="genre_id"
-           @click="listTv(genre_id)"
+           @click="listTv(`10765, ${genre_id}`)"
            :class="{ active: genre_id === genreStore.currentGenreId }">
 
 
@@ -91,6 +108,8 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
       </div>
     </div>
   </div>
+  </div>
+  
 </template>
 
 
@@ -103,7 +122,28 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   list-style: none;
   padding: 0;
 }
-
+.fundo {
+  background-color: #0D1C3A;
+  padding-top: 4vw;
+   padding-bottom: 2vw;
+}
+.fundo h1 {
+ margin-left: 3vw;
+  color: white;
+  font-weight: bold;
+  font-size: 2.5vw;
+}
+ .fav-btn {
+ margin-left: 15vw;
+ color: yellow;
+ border: none;
+ background-color: #0D1C3A;
+ cursor: pointer;
+}
+.fav-btn i {
+  font-size: 20px;
+  margin-top: 2px;
+}
 
 .genre-item {
   background-color: #5d6424;
@@ -118,14 +158,14 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
 .genre-item:hover {
   cursor: pointer;
-  background-color: #7d8a2e;
-  box-shadow: 0 0 0.5rem #5d6424;
+  background-color: #4e9e5f;
+  box-shadow: 0 0 0.5rem #387250;
 }
 .tv-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-left:1.8vw ;
+  justify-content: center;
 }
 
 
@@ -148,14 +188,24 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 
 .tv-details {
   padding: 0 0.5rem;
+  color: white;
 }
-
+.tvs-name {
+  color: white;
+  margin-left: 1vw;
+}
+.tvs-release-date {
+  color: white;
+  margin-left: 1vw;
+  
+}
 
 .tv-title {
   font-size: 1.1rem;
   font-weight: bold;
   line-height: 1.3rem;
   height: 3.2rem;
+  color: white;
 }
 .genre-list {
   display: flex;
@@ -191,7 +241,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   box-shadow: 0 0 0.5rem #748708;
 }
 .active {
-  background-color: #666403;
+  background-color: #67b086;
   font-weight: bolder;
 }
 

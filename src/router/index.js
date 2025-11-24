@@ -31,7 +31,8 @@ const routes = [
   path: '/tv/:tvId',
   name: 'TVDetails',
   component: () => import('../views/TvDetailsView.vue')
-}
+},
+
 
 
 

@@ -191,6 +191,7 @@ const formatDate = (date) =>
   font-weight: bold;
   line-height: 1.3rem;
   height: 3.2rem;
+  color: white;
 }
 
 .movie-genres {

@@ -61,9 +61,10 @@ function openMovie(id) {
 .movie-list {
   display: grid;
   grid-template-columns: 200px 200px 200px 200px 200px;
-  gap: 2rem;
+  gap: 3rem;
   justify-content: center; 
   width: 100%;
+  
 }
 
 .favoritados {
@@ -83,11 +84,13 @@ function openMovie(id) {
      padding: 0vw 0vw 5vw 0vw;
      border-radius: 0.3rem;
      overflow: hidden;
-     box-shadow: 0 0 0.5rem #000;   
+     box-shadow: 0 0 0.5rem #000;
+    
 }
 
    .movie-card img {
      width: 15vw;
+    gap: 7vw;
     border-radius: 0.3rem;
     box-shadow: 0 0 0.5rem #000;
     border-bottom: 2px solid green;

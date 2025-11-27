@@ -164,13 +164,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 .tv-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
 }
 
 
 .tv-card {
-  width: 15rem;
+  width: 20rem;
   height: 30rem;
   border-radius: 0.5rem;
   overflow: hidden;

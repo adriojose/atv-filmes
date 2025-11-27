@@ -153,9 +153,10 @@ const formatDate = (date) =>
 .movie-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   background-color: #12264D;
+  margin-top: 2vw;
 }
 .fav-btn {
  margin-left: 15vw;
@@ -167,7 +168,7 @@ const formatDate = (date) =>
 }
 
 .movie-card {
-  width: 15rem;
+  width: 20rem;
   height: 30rem;
   border-radius: 0.5rem;
   overflow: hidden;

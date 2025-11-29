@@ -91,7 +91,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
         <p class="tvs-release-date">{{ formatDate(tvs.first_air_date) }}</p>
 
 
-        <!-- fiz até aq -->
+       
 
 
         <p class="tvs-genres">

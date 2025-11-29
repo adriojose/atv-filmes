@@ -54,6 +54,10 @@
 </template>
 
 <style scoped>
+.main {
+   background-color: #0D1C3A;
+    min-height: 100vh;
+}
   .companies {
     display: flex;
     flex-direction: row;
@@ -61,23 +65,29 @@
     align-items: center;
     margin-bottom: 2rem;
     margin-left: 4vw;
+
   }
  .content .img {
   border-radius: 8px;
-  height: 19vw;
+   height: 330px;
+  border-radius: 1rem;
+  
  }
  .details .companies {
   width: 2vw;
  }
   .details {
     margin-left: 1.5vw;
+    
   }
   .details h1 {
     font-size: 2.8vw;
   }
   .content {
     display: flex;
-    margin: 3vw;
+    margin:0 3vw;
+    padding-top: 6vw;
+    color: white;
   }
 .details .produtoras {
   font-size: 1.5vw;

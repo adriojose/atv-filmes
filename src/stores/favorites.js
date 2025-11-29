@@ -4,20 +4,21 @@ import { ref } from 'vue'
 export const useFavoritesStore = defineStore('favorites', () => {
   const favorites = ref([])
 
-  // Carrega do localStorage ao iniciar
+ 
   if (localStorage.getItem('favorites')) {
     favorites.value = JSON.parse(localStorage.getItem('favorites'))
   }
 
-  const toggleFavorite = (movie) => {
-    const exists = favorites.value.find(f => f.id === movie.id)
+  const toggleFavorite = (item) => {
+    const exists = favorites.value.find(f => f.id === item.id)
 
     if (exists) {
-      // remover
-      favorites.value = favorites.value.filter(f => f.id !== movie.id)
+      favorites.value = favorites.value.filter(f => f.id !== item.id)
     } else {
-      // adicionar
-      favorites.value.push(movie)
+      favorites.value.push({
+        ...item,
+        media_type: item.media_type || (item.title ? "movie" : "tv")
+      })
     }
 
     localStorage.setItem('favorites', JSON.stringify(favorites.value))
@@ -27,9 +28,5 @@ export const useFavoritesStore = defineStore('favorites', () => {
     return favorites.value.some(f => f.id === id)
   }
 
-  return {
-    favorites,
-    toggleFavorite,
-    isFavorite
-  }
+  return { favorites, toggleFavorite, isFavorite }
 })

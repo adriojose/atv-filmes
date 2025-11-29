@@ -1,105 +1,184 @@
 <script setup>
-import { useFavoritesStore } from '@/stores/favorites'
-import { useRouter } from 'vue-router'
+import { computed } from "vue";
+import { useFavoritesStore } from "@/stores/favorites";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
-const favoritesStore = useFavoritesStore()
+const favoritesStore = useFavoritesStore();
+const router = useRouter();
+
+
+const favoriteMovies = computed(() =>
+  favoritesStore.favorites.filter((f) => f.media_type === "movie")
+);
+
+
+const favoriteSeries = computed(() =>
+  favoritesStore.favorites.filter((f) => f.media_type === "tv")
+);
+
 
 function openMovie(id) {
-  router.push({ name: 'MovieDetails', params: { movieId: id } })
+  router.push({ name: "MovieDetails", params: { movieId: id } });
+}
+
+
+function openSerie(id) {
+  router.push({ name: "TVDetails", params: { tvId: id } });
 }
 </script>
 
 <template>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <div class="favoritos">
-    <h1>Filmes Curtidos</h1>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <div v-if="favoritesStore.favorites.length === 0" class="empty">
-      <p>Nenhum filme curtido ainda ⭐</p>
+  <div class="favoritos">
+   
+
+   
+    <h2>Filmes Curtidos</h2>
+
+    <div v-if="favoriteMovies.length === 0" class="empty">
+      <p>Nenhum filme curtido ⭐</p>
     </div>
 
-    <div class="movie-list" v-else>
-      <div 
+    <div
+      class="movie-list"
+      :class="{ single: favoriteMovies.length === 1 }"
+      v-else
+    >
+      <div
         class="movie-card"
-        v-for="movie in favoritesStore.favorites"
+        v-for="movie in favoriteMovies"
         :key="movie.id"
         @click="openMovie(movie.id)"
       >
-        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path} `" 
-            />
+        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" />
+
         <div class="favoritados">
-             <p>{{ movie.title }}</p>
-        <button
-  class="fav-btn"
-  @click.stop="favoritesStore.toggleFavorite(movie)"
->
-  <span v-if="favoritesStore.isFavorite(movie.id)"><i class="fa-solid fa-star"></i></span>
-  <span v-else><i class="fa-regular fa-star"></i></span>
-</button>
+          <p>{{ movie.title }}</p>
+
+          <button
+            class="fav-btn"
+            @click.stop="favoritesStore.toggleFavorite(movie)"
+          >
+            <i
+              :class="favoritesStore.isFavorite(movie.id)
+                ? 'fa-solid fa-star'
+                : 'fa-regular fa-star'"
+            ></i>
+          </button>
         </div>
-       
+      </div>
+    </div>
+
+   
+    <h2>Séries Curtidas</h2>
+
+    <div v-if="favoriteSeries.length === 0" class="empty">
+      <p>Nenhuma série curtida ⭐</p>
+    </div>
+
+    <div
+      class="movie-list"
+      :class="{ single: favoriteSeries.length === 1 }"
+      v-else
+    >
+      <div
+        class="movie-card"
+        v-for="serie in favoriteSeries"
+        :key="serie.id"
+        @click="openSerie(serie.id)"
+      >
+        <img :src="`https://image.tmdb.org/t/p/w500${serie.poster_path}`" />
+
+        <div class="favoritados">
+          <p>{{ serie.name }}</p>
+
+          <button
+            class="fav-btn"
+            @click.stop="favoritesStore.toggleFavorite(serie)"
+          >
+            <i
+              :class="favoritesStore.isFavorite(serie.id)
+                ? 'fa-solid fa-star'
+                : 'fa-regular fa-star'"
+            ></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
- <style scoped>
+<style scoped>
+.favoritos {
+  background-color: #121826;
+  min-height: 100vh;
+  padding-top: 5vw;
+  padding-bottom: 2vw;
+}
 
- .favoritos {
-    background-color: #121826;
-    min-height: 100vh;
-    padding-top: 5vw;
-    padding-bottom: 2vw;
- }
- .favoritos h1 {
-    font-size: 2.5vw;
-    margin-left: 8vw;
-    color: white;
-    margin-bottom:3vw;
- }
+h2 {
+  color: white;
+  margin-left: 9vw;
+  font-size: 2.5vw;
+  margin-top: 2vw;
+  padding-bottom: 3vw;
+}
+
+.empty p {
+  color: white;
+  margin-left: 8vw;
+  font-size: 1.4vw;
+}
+
 .movie-list {
   display: grid;
-  grid-template-columns: 200px 200px 200px 200px 200px;
-  gap: 2rem;
-  justify-content: center; 
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, 200px);
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: auto;
 }
 
-.favoritados {
-    display: flex;
-    
-}
-.fav-btn {
-     color: yellow;
- border: none;
- background-color: #121826;
- cursor: pointer;
- font-size: 15px;
- margin-left: 4vw;
+.movie-list.single {
+  justify-content: start;
+  margin-left: 8vw;
 }
 
 .movie-card {
-     padding: 0vw 0vw 5vw 0vw;
-     border-radius: 0.3rem;
-     overflow: hidden;
-     box-shadow: 0 0 0.5rem #000;   
+  width: 200px;
+  padding-bottom: 2vw;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  box-shadow: 0 0 0.5rem #000;
+  background-color: #1a2136;
+  cursor: pointer;
 }
 
-   .movie-card img {
-     width: 15vw;
-    border-radius: 0.3rem;
-    box-shadow: 0 0 0.5rem #000;
-    border-bottom: 2px solid green;
-   }
-   
-.movie-card p {
-  color: white;
+.movie-card img {
+  width: 100%;
+  border-radius: 0.3rem 0.3rem 0 0;
+  border-bottom: 2px solid green;
+}
+
+.favoritados {
+  display: flex;
+  align-items: center;
   padding: 0.5vw;
-  font-size: 1vw;
-  font-weight: bold;
-  line-height: 1.2rem;  
-   height: 2.4rem; 
 }
 
- </style>
+.favoritados p {
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.fav-btn {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: yellow;
+}
+</style>

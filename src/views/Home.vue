@@ -52,9 +52,7 @@ onMounted(() => {
     <img src="/src/assets/image 5.png" alt="">
   </div>
 
-  <!-- ---------------------------------- -->
-  <!--     SEÇÃO DE RECOMENDADOS          -->
-  <!-- ---------------------------------- -->
+ 
   <div class="recomendados">
 
     <div class="recomendados-list">
@@ -93,9 +91,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* ------------------- */
-/* BANNER */
-/* ------------------- */
+
 .banner {
   background: url(/src/assets/force_feat\ 1.png);
   background-size: cover;
@@ -132,9 +128,7 @@ onMounted(() => {
   font-size: 3vw;
 }
 
-/* ------------------- */
-/* EM ALTA */
-/* ------------------- */
+
 .emalta {
   background-color: black;
   display: flex;
@@ -151,9 +145,7 @@ onMounted(() => {
   margin-left: 2vw;
 }
 
-/* ------------------- */
-/* RECOMENDADOS */
-/* ------------------- */
+
 .recomendados {
   background-color: #121826;
   padding: 3vw 0 4vw;

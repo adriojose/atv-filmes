@@ -18,6 +18,7 @@ onMounted(async () => {
 
 <template>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
   <div v-if="tv" class="details">
     <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" />
 
@@ -30,6 +31,7 @@ onMounted(async () => {
       <p><strong>Episódios:</strong> {{ tv.number_of_episodes }}</p>
     </div>
   </div>
+ 
 </template>
 
 <style scoped>
@@ -37,10 +39,19 @@ onMounted(async () => {
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  color: black;
+  background-color: #0D1C3A;
+  min-height: 100vh;
+  padding-top: 6vw;
+  color: white;
+}
+.text h1{
+  font-size: 2.8vw;
 }
 .details img {
-  width: 300px;
+  width: 230px;
+  height: 330px;
   border-radius: 1rem;
+  
 }
+
 </style>

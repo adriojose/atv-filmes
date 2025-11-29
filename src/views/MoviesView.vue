@@ -22,10 +22,10 @@ function openMovie(movieId) {
 onMounted(async () => {
   isLoading.value = true
   
-  // ⬇ Carregar os gêneros no store
+  
   await genreStore.getAllGenres('movie')
 
-  // ⬇ Carregar automaticamente os filmes de Ficção Científica ao entrar
+ 
   await listMovies(878)
 
   isLoading.value = false
@@ -37,7 +37,7 @@ const listMovies = async (genreId) => {
 
   const response = await api.get('discover/movie', {
     params: {
-      with_genres: genreId, // agora usa o ID correto
+      with_genres: genreId, 
       language: 'pt-BR',
     },
   })
@@ -55,7 +55,7 @@ const formatDate = (date) =>
   <div class="filmes">
     <h1>Explorar Filmes</h1>
 
-    <!-- Apenas 1 gênero (Ficção Científica) -->
+   
     <ul class="genre-list">
       <li
         v-for="genre in genreStore.genres.filter(g => g.id === 878)"
@@ -153,7 +153,7 @@ const formatDate = (date) =>
 .movie-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.8rem;
   justify-content: center;
   background-color: #12264D;
 }
@@ -175,7 +175,7 @@ const formatDate = (date) =>
 }
 
 .movie-card img {
-  width: 100%;
+  width: 17.7vw;
   height: 20rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem #000;

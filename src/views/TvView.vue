@@ -186,13 +186,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
 }
 
 
-.tv-details {
+.tvs-details {
   padding: 0 0.5rem;
   color: white;
+  
 }
 .tvs-name {
   color: white;
   margin-left: 1vw;
+  font-size: 1.2vw;
 }
 .tvs-release-date {
   color: white;

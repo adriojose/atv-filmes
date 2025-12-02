@@ -64,6 +64,7 @@ nav a {
   text-decoration: none;
   color: #3CBFDD;
   font-weight: bold;
+  
 }
 
 </style>

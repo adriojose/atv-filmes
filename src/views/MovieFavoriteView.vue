@@ -113,16 +113,14 @@ function openSerie(id) {
 .favoritos {
   background-color: #121826;
   min-height: 100vh;
-  padding-top: 5vw;
+  padding-top: 2vw;
   padding-bottom: 2vw;
 }
 
 h2 {
   color: white;
-  margin-left: 9vw;
   font-size: 2.5vw;
-  margin-top: 2vw;
-  padding-bottom: 3vw;
+  margin-left:5rem;
 }
 
 .empty p {
@@ -130,15 +128,14 @@ h2 {
   margin-left: 8rem;
   font-size: 1.4vw;
 }
-
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
-  justify-content: center;
+  grid-template-columns: repeat(7, 1fr); /* máximo de 7 filmes por linha */
   gap: 1.5rem;
-  max-width: 1100px;
-  margin: auto;
+  padding:  2rem 5rem;
+  justify-items: center; /* centraliza os filmes na coluna */
 }
+
 
 .movie-list.single {
   justify-content: start;

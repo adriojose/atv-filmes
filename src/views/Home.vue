@@ -93,18 +93,43 @@ onMounted(() => {
 <style scoped>
 
 .banner {
+  position: relative;
   background: url(/src/assets/force_feat\ 1.png);
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 80vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
+  
+
 }
-.banner img {
-  height: 28vw;
-  margin-left: 9vw;
-  margin-top: 14vw;
-  border-radius: 2px;
+
+/* Overlay escuro */
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); /* Ajuste a opacidade aqui */
+  z-index: 1;
 }
+
+/* Garantir que o conteúdo fique acima do overlay */
+.banner img,
+.banner .info {
+  position: relative;
+  z-index: 2;
+}
+.banner img{
+  height: 80%;
+  width: auto;
+  border-radius: 16px;
+}
+
 .star {
   display: flex;
   justify-content: center;
@@ -117,15 +142,13 @@ onMounted(() => {
  font-size: 15px;
 }
 .info {
-  margin-top: 15vw;
-  margin-left: 3vw;
   color: white;
 }
 .info p {
-  font-weight: bold;
+  font-size:24px
 }
 .info h1 {
-  font-size: 3vw;
+  font-size: 4vw;
 }
 
 

@@ -134,7 +134,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR')
   font-size: 2.5vw;
 }
  .fav-btn {
- margin-left: 15vw;
+ margin-left: 11vw;
  color: yellow;
  border: none;
  background-color: #0D1C3A;

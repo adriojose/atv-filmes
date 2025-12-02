@@ -51,7 +51,8 @@ const formatDate = (date) =>
 </script>
 
 <template>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <div class="filmes">
     <h1>Explorar Filmes</h1>
 
@@ -81,13 +82,15 @@ const formatDate = (date) =>
           :alt="movie.title"
           @click="openMovie(movie.id)"
         />
-        <button
-  class="fav-btn"
-  @click.stop="favoritesStore.toggleFavorite(movie)"
->
-  <span v-if="favoritesStore.isFavorite(movie.id)"><i class="fa-solid fa-star"></i></span>
-  <span v-else><i class="fa-regular fa-star"></i></span>
+       <button class="fav-btn" @click="favoritesStore.toggleFavorite(movie)">
+  <span v-if="favoritesStore.isFavorite(movie.id)">
+    <i class="fa-solid fa-star"></i>
+  </span>
+  <span v-else>
+    <i class="fa-regular fa-star"></i>
+  </span>
 </button>
+
         <div class="movie-details">
           <p class="movie-title">{{ movie.title }}</p>
           <p class="movie-release-date">
@@ -158,12 +161,11 @@ const formatDate = (date) =>
   background-color: #12264D;
 }
 .fav-btn {
- margin-left: 14vw;
+ margin-left:10vw;
  color: yellow;
  border: none;
  background-color: #12264D;
  cursor: pointer;
-
 }
 
 .movie-card {

@@ -123,14 +123,14 @@ const formatDate = (date) =>
 
 .filmes {
   background-color: #0D1C3A;
-  padding-top: 4vw;
-  padding-bottom: 2vw;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
 }
 .filmes h1 {
-  margin-left: 3vw;
+  margin-left: 3rem;
   color: white;
   font-weight: bold;
-  font-size: 2.5vw;
+  font-size: 2.5rem;
   
 }
 .fa-star {
@@ -158,7 +158,7 @@ const formatDate = (date) =>
   background-color: #12264D;
 }
 .fav-btn {
- margin-left: 15vw;
+ margin-left: 14vw;
  color: yellow;
  border: none;
  background-color: #12264D;
@@ -167,8 +167,10 @@ const formatDate = (date) =>
 }
 
 .movie-card {
-  width: 15rem;
-  height: 30rem;
+ width: 100%;
+max-width: 230px;
+height: auto;
+
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 0 0.5rem #000;

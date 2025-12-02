@@ -68,7 +68,7 @@
 
   }
  .content .img {
-  border-radius: 8px;
+  
    height: 330px;
   border-radius: 1rem;
   
@@ -93,7 +93,7 @@
   font-size: 1.5vw;
 }
 .details .companies {
-  margin-left: -0.5vw;
+  margin-left: -0.5vw
 }
 
  

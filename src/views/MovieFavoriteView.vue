@@ -127,7 +127,7 @@ h2 {
 
 .empty p {
   color: white;
-  margin-left: 8vw;
+  margin-left: 8rem;
   font-size: 1.4vw;
 }
 
@@ -142,12 +142,12 @@ h2 {
 
 .movie-list.single {
   justify-content: start;
-  margin-left: 8vw;
+  margin-left: 8rem;
 }
 
 .movie-card {
   width: 200px;
-  padding-bottom: 2vw;
+  padding-bottom: 2rem;
   border-radius: 0.3rem;
   overflow: hidden;
   box-shadow: 0 0 0.5rem #000;
@@ -164,7 +164,7 @@ h2 {
 .favoritados {
   display: flex;
   align-items: center;
-  padding: 0.5vw;
+  padding: 0.5rem;
 }
 
 .favoritados p {

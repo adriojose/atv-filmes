@@ -45,13 +45,11 @@ onMounted(async () => {
   color: white;
 }
 .text h1{
-  font-size: 2.8vw;
+  font-size: 2.8rem;
 }
 .details img {
-  width: 230px;
-  height: 330px;
-  border-radius: 1rem;
-  
+    height: 330px;
+    border-radius: 1rem;
 }
 
 </style>
